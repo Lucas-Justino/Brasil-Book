@@ -11,21 +11,27 @@ class Catalog extends StatefulWidget {
 class _CatalogState extends State<Catalog> {
   @override
   Widget build(BuildContext context) {
-    return const Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [CardBook(), CardBook(), CardBook()],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [CardBook(), CardBook(), CardBook()],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [CardBook(), CardBook(), CardBook()],
-        ),
-      ],
+    return const SingleChildScrollView(
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [CardBook(), CardBook(), CardBook()],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [CardBook(), CardBook(), CardBook()],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [CardBook(), CardBook(), CardBook()],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [CardBook(), CardBook(), CardBook()],
+          ),
+        ],
+      ),
     );
   }
 }

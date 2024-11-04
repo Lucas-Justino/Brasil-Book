@@ -1,4 +1,6 @@
+import 'package:brasil_book/components/add_book.dart';
 import 'package:brasil_book/components/catalog.dart';
+import 'package:brasil_book/components/footer.dart';
 import 'package:brasil_book/components/header.dart';
 import 'package:flutter/material.dart';
 
@@ -13,10 +15,22 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Column(
+      body: Stack(
         children: [
-          Header(),
-          Catalog(),
+          Column(
+            children: [
+              Header(),
+              Expanded(
+                child: Catalog(),
+              ),
+              Footer(),
+            ],
+          ),
+          Positioned(
+            bottom: 40,
+            right: 0,
+            child: AddBook(),
+          ),
         ],
       ),
     );
