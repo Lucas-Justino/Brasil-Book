@@ -1,3 +1,4 @@
+import 'package:brasil_book/components/catalog.dart';
 import 'package:brasil_book/components/header.dart';
 import 'package:flutter/material.dart';
 
@@ -15,6 +16,7 @@ class _HomeState extends State<Home> {
       body: Column(
         children: [
           Header(),
+          Catalog(),
         ],
       ),
     );
