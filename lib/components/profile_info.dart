@@ -42,6 +42,7 @@ class ProfileInfo extends StatelessWidget {
             decoration: const BoxDecoration(
               shape: BoxShape.circle,
               image: DecorationImage(
+                fit: BoxFit.cover,
                 image: AssetImage('assets/images/Foto_Perfil.jpg'),
               ),
             ),
