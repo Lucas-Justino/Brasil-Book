@@ -16,8 +16,8 @@ class _DeleteModalState extends State<DeleteModal> {
       color: Colors.black.withOpacity(0.5),
       child: Center(
         child: Container(
-          width: 300,
-          height: 200,
+          width: 250,
+          height: 150,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
             color: Colors.white,
@@ -39,7 +39,10 @@ class _DeleteModalState extends State<DeleteModal> {
                   children: [
                     TextButton(
                       onPressed: widget.onClose,
-                      child: Text('Cancelar',),
+                      child: Text(
+                        'Cancelar',
+                        style: TextStyle(fontSize: 15),
+                      ),
                     ),
                     ElevatedButton(
                       style: ButtonStyle(
@@ -49,7 +52,10 @@ class _DeleteModalState extends State<DeleteModal> {
                       onPressed: widget.onClose,
                       child: Text(
                         'Excluir',
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold),
                       ),
                     )
                   ],

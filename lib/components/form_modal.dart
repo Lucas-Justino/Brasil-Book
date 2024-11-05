@@ -5,7 +5,9 @@ import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 class FormModal extends StatefulWidget {
   final VoidCallback onClose;
 
-  const FormModal({super.key, required this.onClose});
+  final String titulo;
+
+  const FormModal({super.key, required this.onClose, required this.titulo});
 
   @override
   State<FormModal> createState() => _FormModalState();
@@ -29,7 +31,7 @@ class _FormModalState extends State<FormModal> {
             children: [
               Container(
                 child: Text(
-                  'Editar Informações',
+                  '${widget.titulo} Informações',
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
