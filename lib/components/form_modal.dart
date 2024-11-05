@@ -1,11 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:brasil_book/components/provider/catalog_notifier.dart';
+import 'package:brasil_book/components/start_rating.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
+import 'package:provider/provider.dart';
 
 class FormModal extends StatefulWidget {
   final VoidCallback onClose;
-
   final String info;
 
   FormModal({super.key, required this.onClose, required this.info});
@@ -21,6 +20,8 @@ class _FormModalState extends State<FormModal> {
   final TextEditingController _dataInicioController = TextEditingController();
   final TextEditingController _dataFimController = TextEditingController();
 
+  int _selectedRating = 0; 
+
   @override
   void dispose() {
     _tituloController.dispose();
@@ -31,23 +32,18 @@ class _FormModalState extends State<FormModal> {
     super.dispose();
   }
 
-  final FirebaseFirestore db = FirebaseFirestore.instance;
-
-  Future<void> _addUser() async {
+  Future<void> _addBook(BuildContext context) async {
     final book = <String, dynamic>{
       "Titulo": _tituloController.text,
       "Autor": _autorController.text,
       "Opiniao": _opiniaoController.text,
       "Inicio": _dataInicioController.text,
-      "Fim": _dataFimController.text
+      "Fim": _dataFimController.text,
+      "Rating": _selectedRating, 
     };
 
-    // Adiciona um novo documento com um ID gerado
-    db.collection("books").add(book).then((DocumentReference doc) {
-      print('DocumentSnapshot added with ID: ${doc.id}');
-    }).catchError((error) {
-      print("Error adding document: $error");
-    });
+    await context.read<CatalogNotifier>().addBook(book);
+    widget.onClose();
   }
 
   @override
@@ -65,14 +61,9 @@ class _FormModalState extends State<FormModal> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Container(
-                child: Text(
-                  '${widget.info} Informações',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+              Text(
+                '${widget.info} Informações',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 20),
               TextField(
@@ -109,19 +100,26 @@ class _FormModalState extends State<FormModal> {
                   counterText: '',
                 ),
                 keyboardType: TextInputType.number,
-                inputFormatters: [MaskedInputFormatter('##/##/####')],
               ),
               SizedBox(height: 10),
               TextField(
                 controller: _dataFimController,
                 maxLength: 10,
                 decoration: InputDecoration(
-                    labelText: 'Data de Término',
-                    hintText: 'DD/MM/AAAA',
-                    border: OutlineInputBorder(),
-                    counterText: ''),
+                  labelText: 'Data de Término',
+                  hintText: 'DD/MM/AAAA',
+                  border: OutlineInputBorder(),
+                  counterText: '',
+                ),
                 keyboardType: TextInputType.number,
-                inputFormatters: [MaskedInputFormatter('##/##/####')],
+              ),
+              SizedBox(height: 20),
+              StarRating(
+                onRatingSelected: (rating) {
+                  setState(() {
+                    _selectedRating = rating;
+                  });
+                },
               ),
               SizedBox(height: 20),
               Row(
@@ -133,10 +131,7 @@ class _FormModalState extends State<FormModal> {
                   ),
                   SizedBox(width: 10),
                   ElevatedButton(
-                    onPressed: () {
-                      widget.onClose();
-                      _addUser();
-                    },
+                    onPressed: () => _addBook(context),
                     child: Text('Salvar'),
                   ),
                 ],
