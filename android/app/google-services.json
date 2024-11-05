@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "649998683079",
+    "project_id": "brasil-book",
+    "storage_bucket": "brasil-book.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:649998683079:android:e08eb74bad679037fba7e2",
+        "android_client_info": {
+          "package_name": "com.example.brasil_book"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7Owge965BugyGDJIQClZJ86vwoJ5y0_A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:649998683079:android:5af265d120084d53fba7e2",
+        "android_client_info": {
+          "package_name": "com.lucas.brasilbook"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7Owge965BugyGDJIQClZJ86vwoJ5y0_A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

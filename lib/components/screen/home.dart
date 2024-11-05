@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           if (isAddModalVisible)
             Center(
-              child: FormModal(onClose: toggleModal, titulo: 'Adicionar',),
+              child: FormModal(onClose: toggleModal, info: 'Adicionar',),
             ),
         ],
       ),

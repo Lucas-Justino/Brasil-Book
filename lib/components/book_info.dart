@@ -139,7 +139,7 @@ class _BookInfoState extends State<BookInfo> {
             Footer(),
           ],
         ),
-        if (isEditModalVisible) FormModal(onClose: toggleEditModal, titulo: 'Editar',),
+        if (isEditModalVisible) FormModal(onClose: toggleEditModal, info: 'Editar',),
         if (isDeleteModalVisible) DeleteModal(onClose: toggleDeleteModal),
       ],
     );
