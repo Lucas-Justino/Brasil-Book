@@ -35,4 +35,14 @@ class CatalogNotifier extends ChangeNotifier {
       print("Erro ao adicionar livro: $e");
     }
   }
+
+  Future<void> removeBook(String bookId) async{
+    try {
+      await db.collection("books").doc(bookId).delete();
+      fetchBooks();
+    }
+    catch (e) {
+      print("Erro ao deletar livro $e");
+    }
+  }
 }

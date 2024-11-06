@@ -1,6 +1,7 @@
 import 'package:brasil_book/components/provider/catalog_notifier.dart';
 import 'package:brasil_book/components/start_rating.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_multi_formatter/formatters/masked_input_formatter.dart';
 import 'package:provider/provider.dart';
 
 class FormModal extends StatefulWidget {
@@ -20,7 +21,7 @@ class _FormModalState extends State<FormModal> {
   final TextEditingController _dataInicioController = TextEditingController();
   final TextEditingController _dataFimController = TextEditingController();
 
-  int _selectedRating = 0; 
+  int _selectedRating = 0;
 
   @override
   void dispose() {
@@ -34,12 +35,22 @@ class _FormModalState extends State<FormModal> {
 
   Future<void> _addBook(BuildContext context) async {
     final book = <String, dynamic>{
-      "Titulo": _tituloController.text != "" ? _tituloController.text : "Titulo Desconhecido",
-      "Autor": _autorController.text != "" ? _autorController.text : "Autor Desconhecido",
-      "Opiniao": _opiniaoController.text != "" ? _opiniaoController.text : "Opinião não informada",
-      "Inicio": _dataInicioController.text != "" ? _dataInicioController.text : "Data de início não informada",
-      "Fim": _dataFimController.text != "" ? _dataFimController.text : "Data do término não informada",
-      "Rating": _selectedRating, 
+      "Titulo": _tituloController.text != ""
+          ? _tituloController.text
+          : "Titulo Desconhecido",
+      "Autor": _autorController.text != ""
+          ? _autorController.text
+          : "Autor Desconhecido",
+      "Opiniao": _opiniaoController.text != ""
+          ? _opiniaoController.text
+          : "Opinião não informada",
+      "Inicio": _dataInicioController.text != ""
+          ? "Data de Início: ${_dataInicioController.text}"
+          : "Data de início não informada",
+      "Fim": _dataFimController.text != ""
+          ? "Data do Término: ${_dataFimController.text}"
+          : "Data do término não informada",
+      "Rating": _selectedRating,
     };
 
     await context.read<CatalogNotifier>().addBook(book);
@@ -100,6 +111,10 @@ class _FormModalState extends State<FormModal> {
                   counterText: '',
                 ),
                 keyboardType: TextInputType.number,
+                inputFormatters: [
+                  MaskedInputFormatter(
+                      '##/##/####'),
+                ],
               ),
               SizedBox(height: 10),
               TextField(
@@ -112,6 +127,9 @@ class _FormModalState extends State<FormModal> {
                   counterText: '',
                 ),
                 keyboardType: TextInputType.number,
+                inputFormatters: [
+                  MaskedInputFormatter('##/##/####'),
+                ],
               ),
               SizedBox(height: 20),
               StarRating(

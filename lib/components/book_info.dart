@@ -142,7 +142,7 @@ class _BookInfoState extends State<BookInfo> {
           ],
         ),
         if (isEditModalVisible) FormModal(onClose: toggleEditModal, info: 'Editar',),
-        if (isDeleteModalVisible) DeleteModal(onClose: toggleDeleteModal),
+        if (isDeleteModalVisible) DeleteModal(onClose: toggleDeleteModal, book: widget.book,),
       ],
     );
   }
