@@ -1,15 +1,26 @@
+import 'package:brasil_book/components/provider/catalog_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DeleteModal extends StatefulWidget {
   final VoidCallback onClose;
 
-  const DeleteModal({super.key, required this.onClose});
+  final Map<String, dynamic> book;
+
+  const DeleteModal({super.key, required this.onClose, required this.book});
 
   @override
   State<DeleteModal> createState() => _DeleteModalState();
 }
 
 class _DeleteModalState extends State<DeleteModal> {
+
+  Future<void> _removeBook(String bookId) async {
+    await context.read<CatalogNotifier>().removeBook(bookId);
+    widget.onClose();
+    Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -49,7 +60,7 @@ class _DeleteModalState extends State<DeleteModal> {
                         backgroundColor:
                             WidgetStatePropertyAll(Colors.red[800]),
                       ),
-                      onPressed: widget.onClose,
+                      onPressed: () => _removeBook(widget.book["id"]),
                       child: Text(
                         'Excluir',
                         style: TextStyle(
