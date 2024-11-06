@@ -7,8 +7,10 @@ import 'package:provider/provider.dart';
 class FormModal extends StatefulWidget {
   final VoidCallback onClose;
   final String info;
+  final String? bookId;
 
-  FormModal({super.key, required this.onClose, required this.info});
+  FormModal(
+      {super.key, required this.onClose, required this.info, this.bookId});
 
   @override
   State<FormModal> createState() => _FormModalState();
@@ -55,6 +57,31 @@ class _FormModalState extends State<FormModal> {
 
     await context.read<CatalogNotifier>().addBook(book);
     widget.onClose();
+  }
+
+  Future<void> _editBook() async {
+    final newBook = <String, dynamic>{
+      "Titulo": _tituloController.text != ""
+          ? _tituloController.text
+          : "Titulo Desconhecido",
+      "Autor": _autorController.text != ""
+          ? _autorController.text
+          : "Autor Desconhecido",
+      "Opiniao": _opiniaoController.text != ""
+          ? _opiniaoController.text
+          : "Opinião não informada",
+      "Inicio": _dataInicioController.text != ""
+          ? "Data de Início: ${_dataInicioController.text}"
+          : "Data de início não informada",
+      "Fim": _dataFimController.text != ""
+          ? "Data do Término: ${_dataFimController.text}"
+          : "Data do término não informada",
+      "Rating": _selectedRating,
+    };
+
+    await context.read<CatalogNotifier>().editBook(widget.bookId!, newBook);
+    widget.onClose();
+    Navigator.pop(context);
   }
 
   @override
@@ -112,8 +139,7 @@ class _FormModalState extends State<FormModal> {
                 ),
                 keyboardType: TextInputType.number,
                 inputFormatters: [
-                  MaskedInputFormatter(
-                      '##/##/####'),
+                  MaskedInputFormatter('##/##/####'),
                 ],
               ),
               SizedBox(height: 10),
@@ -149,7 +175,9 @@ class _FormModalState extends State<FormModal> {
                   ),
                   SizedBox(width: 10),
                   ElevatedButton(
-                    onPressed: () => _addBook(context),
+                    onPressed: () => {
+                      widget.info == "Editar" ? _editBook() : _addBook(context)
+                    },
                     child: Text('Salvar'),
                   ),
                 ],
