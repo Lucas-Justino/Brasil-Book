@@ -1,4 +1,5 @@
 import 'package:brasil_book/components/provider/catalog_notifier.dart';
+import 'package:brasil_book/components/services/books_api.dart';
 import 'package:brasil_book/components/start_rating.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_formatter/formatters/masked_input_formatter.dart';
@@ -7,14 +8,17 @@ import 'package:provider/provider.dart';
 class FormModal extends StatefulWidget {
   final VoidCallback onClose;
   final String info;
+  final String? bookId;
 
-  FormModal({super.key, required this.onClose, required this.info});
+  FormModal(
+      {super.key, required this.onClose, required this.info, this.bookId});
 
   @override
   State<FormModal> createState() => _FormModalState();
 }
 
 class _FormModalState extends State<FormModal> {
+  final BooksApi _booksApi = BooksApi();
   final TextEditingController _tituloController = TextEditingController();
   final TextEditingController _autorController = TextEditingController();
   final TextEditingController _opiniaoController = TextEditingController();
@@ -34,6 +38,7 @@ class _FormModalState extends State<FormModal> {
   }
 
   Future<void> _addBook(BuildContext context) async {
+    final image = await _booksApi.searchImage('${_tituloController.text} ${_autorController.text}');
     final book = <String, dynamic>{
       "Titulo": _tituloController.text != ""
           ? _tituloController.text
@@ -51,10 +56,38 @@ class _FormModalState extends State<FormModal> {
           ? "Data do Término: ${_dataFimController.text}"
           : "Data do término não informada",
       "Rating": _selectedRating,
+      "imageUrl" : image,
     };
 
     await context.read<CatalogNotifier>().addBook(book);
     widget.onClose();
+  }
+
+  Future<void> _editBook() async {
+    final image = await _booksApi.searchImage('${_tituloController.text} ${_autorController.text}');
+    final newBook = <String, dynamic>{
+      "Titulo": _tituloController.text != ""
+          ? _tituloController.text
+          : "Titulo Desconhecido",
+      "Autor": _autorController.text != ""
+          ? _autorController.text
+          : "Autor Desconhecido",
+      "Opiniao": _opiniaoController.text != ""
+          ? _opiniaoController.text
+          : "Opinião não informada",
+      "Inicio": _dataInicioController.text != ""
+          ? "Data de Início: ${_dataInicioController.text}"
+          : "Data de início não informada",
+      "Fim": _dataFimController.text != ""
+          ? "Data do Término: ${_dataFimController.text}"
+          : "Data do término não informada",
+      "Rating": _selectedRating,
+      "imageUrl" : image,
+    };
+
+    await context.read<CatalogNotifier>().editBook(widget.bookId!, newBook);
+    widget.onClose();
+    Navigator.pop(context);
   }
 
   @override
@@ -112,8 +145,7 @@ class _FormModalState extends State<FormModal> {
                 ),
                 keyboardType: TextInputType.number,
                 inputFormatters: [
-                  MaskedInputFormatter(
-                      '##/##/####'),
+                  MaskedInputFormatter('##/##/####'),
                 ],
               ),
               SizedBox(height: 10),
@@ -149,7 +181,9 @@ class _FormModalState extends State<FormModal> {
                   ),
                   SizedBox(width: 10),
                   ElevatedButton(
-                    onPressed: () => _addBook(context),
+                    onPressed: () => {
+                      widget.info == "Editar" ? _editBook() : _addBook(context)
+                    },
                     child: Text('Salvar'),
                   ),
                 ],

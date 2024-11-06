@@ -3,7 +3,9 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class Background extends StatelessWidget {
-  const Background({super.key});
+  final Map<String, dynamic> book;
+
+  const Background({super.key, required this.book});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,7 @@ class Background extends StatelessWidget {
             image: DecorationImage(
               fit: BoxFit.cover,
               image: NetworkImage(
-                  'https://m.media-amazon.com/images/I/81Ed9yMQWIL._AC_UF1000,1000_QL80_.jpg'),
+                  '${book['imageUrl']}'),
             ),
           ),
           child: BackdropFilter(
