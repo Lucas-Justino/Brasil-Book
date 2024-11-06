@@ -34,11 +34,11 @@ class _FormModalState extends State<FormModal> {
 
   Future<void> _addBook(BuildContext context) async {
     final book = <String, dynamic>{
-      "Titulo": _tituloController.text,
-      "Autor": _autorController.text,
-      "Opiniao": _opiniaoController.text,
-      "Inicio": _dataInicioController.text,
-      "Fim": _dataFimController.text,
+      "Titulo": _tituloController.text != "" ? _tituloController.text : "Titulo Desconhecido",
+      "Autor": _autorController.text != "" ? _autorController.text : "Autor Desconhecido",
+      "Opiniao": _opiniaoController.text != "" ? _opiniaoController.text : "Opinião não informada",
+      "Inicio": _dataInicioController.text != "" ? _dataInicioController.text : "Data de início não informada",
+      "Fim": _dataFimController.text != "" ? _dataFimController.text : "Data do término não informada",
       "Rating": _selectedRating, 
     };
 

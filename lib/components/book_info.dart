@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:brasil_book/components/form_modal.dart';
 
 class BookInfo extends StatefulWidget {
-  const BookInfo({super.key});
+  const BookInfo({super.key, required this.book});
+
+  final Map<String, dynamic> book;
 
   @override
   State<BookInfo> createState() => _BookInfoState();
@@ -82,14 +84,14 @@ class _BookInfoState extends State<BookInfo> {
               ],
             ),
             Text(
-              'Título do Livro',
+              '${widget.book["Titulo"]}',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
               ),
             ),
             Text(
-              'Nome do Autor',
+              '${widget.book["Autor"]}',
               style: TextStyle(fontSize: 15),
             ),
             Padding(
@@ -98,7 +100,7 @@ class _BookInfoState extends State<BookInfo> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: List.generate(
                   5,
-                  (index) => Icon(Icons.star, color: Colors.amber[300]),
+                  (index) => Icon(Icons.star, color: index < widget.book["Rating"] ? Colors.amber[300] : Colors.grey[300]),
                 ),
               ),
             ),
@@ -114,9 +116,9 @@ class _BookInfoState extends State<BookInfo> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Data de Início'),
+                  Text('${widget.book["Inicio"]}'),
                   SizedBox(height: 5),
-                  Text('Data de Término'),
+                  Text('${widget.book["Fim"]}'),
                 ],
               ),
             ),
@@ -131,7 +133,7 @@ class _BookInfoState extends State<BookInfo> {
                 alignment: Alignment.topLeft,
                 padding: EdgeInsets.all(16),
                 child: Text(
-                  'Minha opinião',
+                  '${widget.book["Opiniao"]}',
                   style: TextStyle(fontSize: 15),
                 ),
               ),

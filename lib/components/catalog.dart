@@ -26,8 +26,7 @@ class Catalog extends StatelessWidget {
                 final book = catalogProvider.books[index];
                 return CardBook(
                   imageUrl: book['imageUrl'] ?? 'https://m.media-amazon.com/images/I/81Ed9yMQWIL._AC_UF1000,1000_QL80_.jpg',
-                  title: book['Titulo'] ?? 'Título Desconhecido',
-                  rating: book['Rating'] ?? 5,
+                  book: book,
                 );
               },
             ),

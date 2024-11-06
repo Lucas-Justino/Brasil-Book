@@ -13,7 +13,11 @@ class CatalogNotifier extends ChangeNotifier {
   Future<void> fetchBooks() async {
     try {
       QuerySnapshot event = await db.collection("books").get();
-      books = event.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
+      books = event.docs.map((doc) {
+        final data = doc.data() as Map<String, dynamic>;
+        data['id'] = doc.id;
+        return data;
+        }).toList();
       isLoading = false;
       notifyListeners();
     } catch (e) {

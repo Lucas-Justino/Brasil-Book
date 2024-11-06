@@ -3,14 +3,12 @@ import 'package:brasil_book/components/screen/book.dart';
 
 class CardBook extends StatelessWidget {
   final String imageUrl;
-  final String title;
-  final int rating;
+  final Map<String, dynamic> book;
 
   const CardBook({
     super.key,
     required this.imageUrl,
-    required this.title,
-    this.rating = 5,
+    required this.book,
   });
 
   @override
@@ -22,7 +20,7 @@ class CardBook extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => BookScreen(),
+                builder: (context) => BookScreen(book: book,),
               ),
             );
           },
@@ -45,7 +43,7 @@ class CardBook extends StatelessWidget {
             5,
             (index) => Icon(
               Icons.star,
-              color: index < rating.toInt() ? Colors.amber[300] : Colors.grey[300],
+              color: index < book['Rating'].toInt() ? Colors.amber[300] : Colors.grey[300],
               size: 20,
             ),
           ),
