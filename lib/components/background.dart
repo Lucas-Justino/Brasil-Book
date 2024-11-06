@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:brasil_book/components/book_info.dart';
 import 'package:flutter/material.dart';
 
 class Background extends StatelessWidget {
@@ -48,7 +47,6 @@ class Background extends StatelessWidget {
             ),
           ),
         ),
-        BookInfo(),
       ],
     );
   }

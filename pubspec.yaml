@@ -30,7 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-    
+  provider: ^6.0.5  
   flutter_multi_formatter: ^2.0.0
 
 

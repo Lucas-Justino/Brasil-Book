@@ -1,8 +1,15 @@
-import 'package:brasil_book/components/screen/book.dart';
 import 'package:flutter/material.dart';
+import 'package:brasil_book/components/screen/book.dart';
 
 class CardBook extends StatelessWidget {
-  const CardBook({super.key});
+  final String imageUrl;
+  final Map<String, dynamic> book;
+
+  const CardBook({
+    super.key,
+    required this.imageUrl,
+    required this.book,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -13,52 +20,35 @@ class CardBook extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => BookScreen(),
+                builder: (context) => BookScreen(book: book,),
               ),
             );
           },
           child: Container(
-            height: 160,
-            width: 100,
+            height: 180,
+            width: 120,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                image: const DecorationImage(
-                    image: NetworkImage(
-                        'https://books.google.com.br/books/content?id=3wohEJsBaI0C&hl=pt-BR&pg=PP1&img=1&zoom=3&bul=1&sig=ACfU3U01disCzahbVubOE78P8jRz1B56YA&w=1280'))),
+              borderRadius: BorderRadius.circular(5),
+              image: DecorationImage(
+                image: NetworkImage(imageUrl),
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
         ),
+        const SizedBox(height: 10),
         Row(
-          children: [
-            Icon(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: List.generate(
+            5,
+            (index) => Icon(
               Icons.star,
-              color: Colors.amber[300],
+              color: index < book['Rating'].toInt() ? Colors.amber[300] : Colors.grey[300],
               size: 20,
             ),
-            Icon(
-              Icons.star,
-              color: Colors.amber[300],
-              size: 20,
-            ),
-            Icon(
-              Icons.star,
-              color: Colors.amber[300],
-              size: 20,
-            ),
-            Icon(
-              Icons.star,
-              color: Colors.amber[300],
-              size: 20,
-            ),
-            Icon(
-              Icons.star,
-              color: Colors.amber[300],
-              size: 20,
-            ),
-          ],
+          ),
         ),
-        const SizedBox(
-          height: 20,
-        )
+        const SizedBox(height: 20),
       ],
     );
   }
