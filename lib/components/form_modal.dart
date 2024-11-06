@@ -1,4 +1,5 @@
 import 'package:brasil_book/components/provider/catalog_notifier.dart';
+import 'package:brasil_book/components/services/books_api.dart';
 import 'package:brasil_book/components/start_rating.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_formatter/formatters/masked_input_formatter.dart';
@@ -17,6 +18,7 @@ class FormModal extends StatefulWidget {
 }
 
 class _FormModalState extends State<FormModal> {
+  final BooksApi _booksApi = BooksApi();
   final TextEditingController _tituloController = TextEditingController();
   final TextEditingController _autorController = TextEditingController();
   final TextEditingController _opiniaoController = TextEditingController();
@@ -36,6 +38,7 @@ class _FormModalState extends State<FormModal> {
   }
 
   Future<void> _addBook(BuildContext context) async {
+    final image = await _booksApi.searchImage('${_tituloController.text} ${_autorController.text}');
     final book = <String, dynamic>{
       "Titulo": _tituloController.text != ""
           ? _tituloController.text
@@ -53,6 +56,7 @@ class _FormModalState extends State<FormModal> {
           ? "Data do Término: ${_dataFimController.text}"
           : "Data do término não informada",
       "Rating": _selectedRating,
+      "imageUrl" : image,
     };
 
     await context.read<CatalogNotifier>().addBook(book);
@@ -60,6 +64,7 @@ class _FormModalState extends State<FormModal> {
   }
 
   Future<void> _editBook() async {
+    final image = await _booksApi.searchImage('${_tituloController.text} ${_autorController.text}');
     final newBook = <String, dynamic>{
       "Titulo": _tituloController.text != ""
           ? _tituloController.text
@@ -77,6 +82,7 @@ class _FormModalState extends State<FormModal> {
           ? "Data do Término: ${_dataFimController.text}"
           : "Data do término não informada",
       "Rating": _selectedRating,
+      "imageUrl" : image,
     };
 
     await context.read<CatalogNotifier>().editBook(widget.bookId!, newBook);

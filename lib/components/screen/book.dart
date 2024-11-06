@@ -17,7 +17,9 @@ class _BookScreenState extends State<BookScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          const Background(),
+          Background(
+            book: widget.book,
+          ),
           BookInfo(
             book: widget.book,
           )

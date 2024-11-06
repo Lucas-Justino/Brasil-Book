@@ -57,11 +57,12 @@ class _BookInfoState extends State<BookInfo> {
                   margin: EdgeInsets.only(top: 150),
                   width: 200,
                   height: 300,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     image: DecorationImage(
                       image: NetworkImage(
-                        'https://m.media-amazon.com/images/I/81Ed9yMQWIL._AC_UF1000,1000_QL80_.jpg',
+                        widget.book['imageUrl']
                       ),
+                      fit: BoxFit.cover
                     ),
                   ),
                 ),
