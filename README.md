@@ -1,16 +1,12 @@
 # brasil_book
 
-A new Flutter project.
+Um aplicativo de catálogo de livros em Flutter que permite adicionar um livro, além de realizar uma busca de livros utilizando a API do Google Books. O projeto exibe os livros em uma grade com imagens, títulos e autores, facilitando a navegação e busca por títulos específicos.
 
-## Getting Started
+## Funcionalidades
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Busca por livros através de uma palavra-chave
+- Exibição dos livros encontrados em um layout de grid com Imagem, Título, Autores
+- Descrição detalhada dos livros
+- Espaço para compartilhar sua opinião e avaliar o livro
+- Seção dedicada para exibir os livros que você já leu
+  
