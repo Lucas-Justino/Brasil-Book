@@ -19,6 +19,7 @@ class _BookScreenState extends State<BookScreen> {
         children: [
           Background(
             book: widget.book,
+            url: widget.book['imageUrl'],
           ),
           BookInfo(
             book: widget.book,

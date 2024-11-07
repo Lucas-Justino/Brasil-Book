@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class ProfileInfo extends StatelessWidget {
-  const ProfileInfo({super.key});
+  final String str1;
+  final String str2;
+
+  const ProfileInfo({super.key, required this.str1, required this.str2});
 
   @override
   Widget build(BuildContext context) {
@@ -18,17 +21,17 @@ class ProfileInfo extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Row(
+          Row(
             children: [
               Text(
-                'Meus ',
+                str1,
                 style: TextStyle(
                   fontSize: 20,
                   color: Color.fromARGB(255, 151, 145, 145),
                 ),
               ),
               Text(
-                'Livros',
+                str2,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,

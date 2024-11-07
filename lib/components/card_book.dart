@@ -20,7 +20,9 @@ class CardBook extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => BookScreen(book: book,),
+                builder: (context) => BookScreen(
+                  book: book,
+                ),
               ),
             );
           },
@@ -43,7 +45,12 @@ class CardBook extends StatelessWidget {
             5,
             (index) => Icon(
               Icons.star,
-              color: index < book['Rating'].toInt() ? Colors.amber[300] : Colors.grey[300],
+              color: index <
+                      (book['Rating']?.toInt() ??
+                          book['volumeInfo']['averageRating']?.toInt() ??
+                          5)
+                  ? Colors.amber[300]
+                  : Colors.grey[300],
               size: 20,
             ),
           ),
