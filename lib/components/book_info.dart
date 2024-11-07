@@ -59,11 +59,12 @@ class _BookInfoState extends State<BookInfo> {
                   height: 300,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: NetworkImage(
-                        widget.book['imageUrl']
-                      ),
-                      fit: BoxFit.cover
-                    ),
+                        image: NetworkImage(
+                          widget.book['imageUrl'] ??
+                              widget.book['volumeInfo']['imageLinks']
+                                  ['thumbnail'],
+                        ),
+                        fit: BoxFit.cover),
                   ),
                 ),
                 Container(
@@ -85,14 +86,14 @@ class _BookInfoState extends State<BookInfo> {
               ],
             ),
             Text(
-              '${widget.book["Titulo"]}',
+              '${widget.book["Titulo"] ?? widget.book['volumeInfo']['title']}',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
               ),
             ),
             Text(
-              '${widget.book["Autor"]}',
+              '${widget.book["Autor"] ?? widget.book['volumeInfo']['authors'][0]}',
               style: TextStyle(fontSize: 15),
             ),
             Padding(
@@ -101,7 +102,14 @@ class _BookInfoState extends State<BookInfo> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: List.generate(
                   5,
-                  (index) => Icon(Icons.star, color: index < widget.book["Rating"] ? Colors.amber[300] : Colors.grey[300]),
+                  (index) => Icon(Icons.star,
+                      color: index <
+                              (widget.book['Rating']?.toInt() ??
+                                  widget.book['volumeInfo']['averageRating']
+                                      ?.toInt() ??
+                                  5)
+                          ? Colors.amber[300]
+                          : Colors.grey[300]),
                 ),
               ),
             ),
@@ -117,9 +125,9 @@ class _BookInfoState extends State<BookInfo> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('${widget.book["Inicio"]}'),
+                  Text('${widget.book["Inicio"] ?? 'Data não informada'}'),
                   SizedBox(height: 5),
-                  Text('${widget.book["Fim"]}'),
+                  Text('${widget.book["Fim"] ?? 'Data não informada'}'),
                 ],
               ),
             ),
@@ -134,7 +142,7 @@ class _BookInfoState extends State<BookInfo> {
                 alignment: Alignment.topLeft,
                 padding: EdgeInsets.all(16),
                 child: Text(
-                  '${widget.book["Opiniao"]}',
+                  '${widget.book["Opiniao"] ?? 'Opinião não informada'}',
                   style: TextStyle(fontSize: 15),
                 ),
               ),
@@ -142,8 +150,17 @@ class _BookInfoState extends State<BookInfo> {
             Footer(),
           ],
         ),
-        if (isEditModalVisible) FormModal(onClose: toggleEditModal, info: 'Editar', bookId: widget.book["id"],),
-        if (isDeleteModalVisible) DeleteModal(onClose: toggleDeleteModal, book: widget.book,),
+        if (isEditModalVisible)
+          FormModal(
+            onClose: toggleEditModal,
+            info: 'Editar',
+            bookId: widget.book["id"],
+          ),
+        if (isDeleteModalVisible)
+          DeleteModal(
+            onClose: toggleDeleteModal,
+            book: widget.book,
+          ),
       ],
     );
   }

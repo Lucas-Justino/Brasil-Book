@@ -25,7 +25,7 @@ class Catalog extends StatelessWidget {
               itemBuilder: (context, index) {
                 final book = catalogProvider.books[index];
                 return CardBook(
-                  imageUrl: book['imageUrl'],
+                  imageUrl: book['imageUrl'] ?? book['volumeInfo']['imageLinks']['thumbnail'],
                   book: book,
                 );
               },

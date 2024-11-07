@@ -1,5 +1,6 @@
 import 'package:brasil_book/components/add_book.dart';
 import 'package:brasil_book/components/catalog.dart';
+import 'package:brasil_book/components/custom_search_bar.dart';
 import 'package:brasil_book/components/footer.dart';
 import 'package:brasil_book/components/form_modal.dart';
 import 'package:brasil_book/components/header.dart';
@@ -28,7 +29,8 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           const Column(
             children: [
-              Header(),
+              Header(str1: 'Meus ', str2: 'Livros',),
+              CustomSearchBar(),
               Expanded(
                 child: Catalog(),
               ),

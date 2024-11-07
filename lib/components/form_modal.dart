@@ -1,6 +1,6 @@
 import 'package:brasil_book/components/provider/catalog_notifier.dart';
 import 'package:brasil_book/components/services/books_api.dart';
-import 'package:brasil_book/components/start_rating.dart';
+import 'package:brasil_book/components/star_rating.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_formatter/formatters/masked_input_formatter.dart';
 import 'package:provider/provider.dart';
