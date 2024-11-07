@@ -12,7 +12,6 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
   final TextEditingController _searchController = TextEditingController();
 
   Future<void> searchBook() async {
-    print(_searchController.text);
     Navigator.push(context, MaterialPageRoute(builder: (context) => SearchScreen(query: _searchController.text,)));
   }
 

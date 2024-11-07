@@ -23,7 +23,7 @@ class _CatalogSearchState extends State<CatalogSearch> {
 
   Future<void> searchBooks() async {
     List<Map<String, dynamic>> result =
-        await _booksApi.searchBooks('Como eu era antes de voce');
+        await _booksApi.searchBooks(widget.query);
     setState(() {
       books = result;
     });
