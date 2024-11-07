@@ -10,3 +10,12 @@ Um aplicativo de catálogo de livros em Flutter que permite adicionar um livro, 
 - Espaço para compartilhar sua opinião e avaliar o livro
 - Seção dedicada para exibir os livros que você já leu
   
+## Instalação
+
+- Instale as dependências com
+  ```bash
+    flutter pub get
+
+- Depois execute o comando
+  ```bash
+  flutter run
