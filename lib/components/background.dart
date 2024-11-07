@@ -40,7 +40,9 @@ class Background extends StatelessWidget {
             ),
             child: Center(
               child: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context);
+                },
                 icon: Icon(
                   Icons.chevron_left,
                   color: Colors.white,
